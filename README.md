@@ -88,12 +88,10 @@ python test_app.py
 
 ## Project Structure
 
-```
 cancer-detection-system/
 ├── Frontend/                # React frontend
 ├── Backend-SpringBoot/      # Spring Boot backend
 └── Backend-Python/          # Python ML service
-```
 
 
 ## Contributing
