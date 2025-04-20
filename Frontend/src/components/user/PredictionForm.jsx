@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Container, Header, Segment, Grid, Message, Loader } from 'semantic-ui-react';
 import { WorkApi } from '../misc/WorkApi';
 import { handleLogError } from '../misc/Helpers';
+import { motion } from 'framer-motion';
 
 const FEATURE_NAMES = [
     ['mean_radius', 'Mean Radius'], 
@@ -68,68 +69,102 @@ const PredictionForm = () => {
     };
 
     return (
-        <Container style={{ marginTop: '2em' }}>
-            <Segment padded='very' raised>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1em' }}>
-                    <Header as='h2' color='purple'>
-                        Breast Cancer Prediction
-                    </Header>
-                    <Button 
-                        icon='refresh'
-                        color='purple'
-                        onClick={handleRefresh}
-                        circular
-                        size='large'
-                        title="Refresh Form"
-                    />
-                </div>
-                <Form onSubmit={handleSubmit}>
-                    <Grid columns={2} stackable>
-                        {FEATURE_NAMES.map(([fieldName, label]) => (
-                            <Grid.Column key={fieldName}>
-                                <Form.Field>
-                                    <label>{label}</label>
-                                    <Form.Input
-                                        type="number"
-                                        step="any"
-                                        required
-                                        onChange={(e) => setFormData({
-                                            ...formData,
-                                            [fieldName]: parseFloat(e.target.value)
-                                        })}
-                                    />
-                                </Form.Field>
-                            </Grid.Column>
-                        ))}
-                    </Grid>
-                    <div style={{ textAlign: 'center', marginTop: '2em' }}>
-                        <Button type='submit' color='purple' size='large'>
-                            Predict
-                        </Button>
-                    </div>
-                </Form>
-                {error && (
-                    <Message negative>
-                        <Message.Header>Error</Message.Header>
-                        <p>{error}</p>
-                    </Message>
-                )}
-                {isLoading && (
-                    <div style={{ textAlign: 'center', marginTop: '1em' }}>
-                        <Loader active inline='centered' />
-                    </div>
-                )}
-                {result && (
-                    <Message
-                        style={{ marginTop: '1em' }}
-                        positive={!result.includes('Cancer')}
-                        negative={result.includes('Cancer')}
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+        >
+            <Container style={{ marginTop: '2em' }}>
+                <Segment padded='very' raised className="glass-morphism">
+                    <motion.div
+                        initial={{ scale: 0.9 }}
+                        animate={{ scale: 1 }}
+                        transition={{ duration: 0.3 }}
                     >
-                        <Message.Header>{result}</Message.Header>
-                    </Message>
-                )}
-            </Segment>
-        </Container>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2em' }}>
+                            <Header as='h2' color='purple'>
+                                Breast Cancer Prediction
+                            </Header>
+                            <motion.div
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                            >
+                                <Button 
+                                    icon='refresh'
+                                    color='purple'
+                                    onClick={handleRefresh}
+                                    circular
+                                    size='large'
+                                    className="hover-effect"
+                                />
+                            </motion.div>
+                        </div>
+                        <Form onSubmit={handleSubmit} className="animated-form">
+                            <Grid columns={2} stackable>
+                                {FEATURE_NAMES.map(([fieldName, label], index) => (
+                                    <Grid.Column key={fieldName}>
+                                        <motion.div
+                                            initial={{ opacity: 0, x: -20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: index * 0.05 }}
+                                        >
+                                            <Form.Field className="form-field-animation">
+                                                <label>{label}</label>
+                                                <Form.Input
+                                                    type="number"
+                                                    step="any"
+                                                    required
+                                                    className="input-animation"
+                                                    onChange={(e) => setFormData({
+                                                        ...formData,
+                                                        [fieldName]: parseFloat(e.target.value)
+                                                    })}
+                                                />
+                                            </Form.Field>
+                                        </motion.div>
+                                    </Grid.Column>
+                                ))}
+                            </Grid>
+                            <motion.div 
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                style={{ textAlign: 'center', marginTop: '2em' }}
+                            >
+                                <Button type='submit' color='purple' size='large'>
+                                    Predict
+                                </Button>
+                            </motion.div>
+                        </Form>
+                        {error && (
+                            <Message negative>
+                                <Message.Header>Error</Message.Header>
+                                <p>{error}</p>
+                            </Message>
+                        )}
+                        {isLoading && (
+                            <div style={{ textAlign: 'center', marginTop: '1em' }}>
+                                <Loader active inline='centered' />
+                            </div>
+                        )}
+                        {result && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5 }}
+                            >
+                                <Message
+                                    style={{ marginTop: '1em' }}
+                                    positive={!result.includes('Cancer')}
+                                    negative={result.includes('Cancer')}
+                                >
+                                    <Message.Header>{result}</Message.Header>
+                                </Message>
+                            </motion.div>
+                        )}
+                    </motion.div>
+                </Segment>
+            </Container>
+        </motion.div>
     );
 };
 

@@ -4,6 +4,7 @@ import { Button, Form, Grid, Icon, Segment, Menu, Message, Divider, Header } fro
 import { useAuth } from '../context/AuthContext'
 import { WorkApi } from '../misc/WorkApi'
 import { parseJwt, getSocialLoginUrl, handleLogError } from '../misc/Helpers'
+import { motion } from 'framer-motion'
 
 function Login() {
   const Auth = useAuth()
@@ -47,64 +48,76 @@ function Login() {
   }
 
   if (isLoggedIn) {
-    return <Navigate to='/userpage' />
+    const user = Auth.getUser()
+    const userRole = user.data.rol[0]
+    return <Navigate to={userRole === 'ADMIN' ? '/adminpage' : '/userpage'} />
   }
 
   return (
-    <Grid textAlign='center'>
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Form size='large' onSubmit={handleSubmit}>
-          <Segment>
-            <Header as='h2' color='purple' textAlign='center'>
-              Login to your account
-            </Header>
-            <Form.Input
-              fluid
-              autoFocus
-              name='username'
-              icon='user'
-              iconPosition='left'
-              placeholder='Username'
-              onChange={handleInputChange}
-            />
-            <Form.Input
-              fluid
-              name='password'
-              icon='lock'
-              iconPosition='left'
-              placeholder='Password'
-              type='password'
-              onChange={handleInputChange}
-            />
-            <Button color='purple' fluid size='large'>Login</Button>
-          </Segment>
-        </Form>
-        <Message>
-          Don't have an account?{' '}
-          <NavLink to="/signup" style={{ color: 'purple' }}>
-            Sign Up
-          </NavLink>
-        </Message>
-        {isError && <Message negative>The username or password provided are incorrect!</Message>}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <Grid textAlign='center' style={{ marginTop: '7em' }}>
+        <Grid.Column style={{ maxWidth: 550 }}>
+          <Form size='large' onSubmit={handleSubmit}>
+            <Segment padded='very' className="glass-morphism">
+              <Header as='h2' color='purple' textAlign='center' style={{ marginBottom: '2em' }}>
+                Login to your account
+              </Header>
+              <Form.Input
+                fluid
+                autoFocus
+                name='username'
+                icon='user'
+                iconPosition='left'
+                placeholder='Username'
+                onChange={handleInputChange}
+                style={{ marginBottom: '1.5em' }}
+                className="input-animation"
+              />
+              <Form.Input
+                fluid
+                name='password'
+                icon='lock'
+                iconPosition='left'
+                placeholder='Password'
+                type='password'
+                onChange={handleInputChange}
+                style={{ marginBottom: '2em' }}
+                className="input-animation"
+              />
+              <Button color='purple' fluid size='large'>Login</Button>
+            </Segment>
+          </Form>
+          <Message>
+            Don't have an account?{' '}
+            <NavLink to="/signup" style={{ color: 'purple' }}>
+              Sign Up
+            </NavLink>
+          </Message>
+          {isError && <Message negative>The username or password provided are incorrect!</Message>}
 
-        <Divider horizontal>or connect with</Divider>
+          <Divider horizontal>or connect with</Divider>
 
-        <Menu compact icon='labeled'>
-          <Menu.Item name='github' href={getSocialLoginUrl('github')}>
-            <Icon name='github' />Github
-          </Menu.Item>
-          <Menu.Item name='google' href={getSocialLoginUrl('google')}>
-            <Icon name='google' />Google
-          </Menu.Item>
-          <Menu.Item name='facebook'>
-            <Icon name='facebook' disabled />Facebook
-          </Menu.Item>
-          <Menu.Item name='instagram'>
-            <Icon name='instagram' disabled />Instagram
-          </Menu.Item>
-        </Menu>
-      </Grid.Column>
-    </Grid>
+          <Menu compact icon='labeled'>
+            <Menu.Item name='github' href={getSocialLoginUrl('github')}>
+              <Icon name='github' />Github
+            </Menu.Item>
+            <Menu.Item name='google' href={getSocialLoginUrl('google')}>
+              <Icon name='google' />Google
+            </Menu.Item>
+            <Menu.Item name='facebook'>
+              <Icon name='facebook' disabled />Facebook
+            </Menu.Item>
+            <Menu.Item name='instagram'>
+              <Icon name='instagram' disabled />Instagram
+            </Menu.Item>
+          </Menu>
+        </Grid.Column>
+      </Grid>
+    </motion.div>
   )
 }
 
