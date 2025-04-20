@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Menu } from 'semantic-ui-react'
 import { useAuth } from '../context/AuthContext'
+import { motion } from 'framer-motion'
 
 function Navbar() {
   const { getUser, userIsAuthenticated, userLogout } = useAuth()
@@ -23,30 +24,38 @@ function Navbar() {
     return user && user.data.rol[0] === 'ADMIN' ? { "display": "block" } : { "display": "none" }
   }
 
-  const userPageStyle = () => {
-    const user = getUser()
-    return user && user.data.rol[0] === 'USER' ? { "display": "block" } : { "display": "none" }
-  }
-
   const getUserName = () => {
     const user = getUser()
     return user ? user.data.name : ''
   }
 
   return (
-    <Menu inverted color='purple' stackable size='massive' style={{borderRadius: 0}}>
-      <Container>
-        <Menu.Item header>Movie-UI</Menu.Item>
-        <Menu.Item as={Link} to="/adminpage" style={adminPageStyle()}>AdminPage</Menu.Item>
-        <Menu.Item as={Link} to="/userpage" style={userPageStyle()}>UserPage</Menu.Item>
-        <Menu.Menu position='right'>
-          <Menu.Item as={Link} to="/login" style={enterMenuStyle()}>Login</Menu.Item>
-          <Menu.Item as={Link} to="/signup" style={enterMenuStyle()}>Sign Up</Menu.Item>
-          <Menu.Item header style={logoutMenuStyle()}>{`Hi ${getUserName()}`}</Menu.Item>
-          <Menu.Item as={Link} to="/" style={logoutMenuStyle()} onClick={logout}>Logout</Menu.Item>
-        </Menu.Menu>
-      </Container>
-    </Menu>
+    <motion.div
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ type: "spring", stiffness: 100 }}
+    >
+      <Menu inverted color='purple' stackable size='massive' style={{borderRadius: 0}}>
+        <Container>
+          <Menu.Item header>
+            <motion.div whileHover={{ scale: 1.1 }}>
+              Cancer Detection System
+            </motion.div>
+          </Menu.Item>
+          <Menu.Menu position='right'>
+            <motion.div whileHover={{ scale: 1.05 }}>
+              <Menu.Item header style={logoutMenuStyle()}>{`Hi ${getUserName()}`}</Menu.Item>
+            </motion.div>
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Menu.Item as={Link} to="/" style={logoutMenuStyle()} onClick={logout}>Logout</Menu.Item>
+            </motion.div>
+          </Menu.Menu>
+        </Container>
+      </Menu>
+    </motion.div>
   )
 }
 

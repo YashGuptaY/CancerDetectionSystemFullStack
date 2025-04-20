@@ -11,3 +11,127 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Glass Morphism Effect */
+.glass-morphism {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37) !important;
+}
+
+/* Form Field Animations */
+.form-field-animation {
+    transition: all 0.3s ease;
+}
+
+.form-field-animation:hover {
+    transform: translateY(-2px);
+}
+
+/* Input Animation */
+.input-animation {
+    transition: all 0.3s ease !important;
+}
+
+.input-animation:focus {
+    transform: scale(1.02) !important;
+    box-shadow: 0 0 8px rgba(128, 0, 128, 0.2) !important;
+}
+
+/* Hover Effect for Buttons */
+.hover-effect {
+    transition: all 0.3s ease !important;
+}
+
+.hover-effect:hover {
+    transform: rotate(180deg);
+    box-shadow: 0 0 15px rgba(128, 0, 128, 0.3) !important;
+}
+
+/* Animated Form */
+.animated-form {
+    transition: all 0.3s ease;
+}
+
+.animated-form button {
+    transition: all 0.3s ease !important;
+}
+
+.animated-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(128, 0, 128, 0.3) !important;
+}
+
+/* Page Transition */
+.page-transition-enter {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.page-transition-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 300ms, transform 300ms;
+}
+
+.page-transition-exit {
+    opacity: 1;
+}
+
+.page-transition-exit-active {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 300ms, transform 300ms;
+}
+
+/* Navigation Animation */
+.menu-item-animation {
+  transition: all 0.3s ease !important;
+}
+
+.menu-item-animation:hover {
+  background: rgba(128, 0, 128, 0.2) !important;
+}
+
+/* Table Animations */
+.ui.table tr {
+  transition: all 0.3s ease !important;
+}
+
+.ui.table tr:hover {
+  transform: scale(1.01);
+  background: rgba(128, 0, 128, 0.05) !important;
+}
+
+/* Message Animations */
+.ui.message {
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button Hover Effects */
+.ui.button {
+  transition: all 0.3s ease !important;
+}
+
+.ui.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(128, 0, 128, 0.2) !important;
+}
+
+/* Form Field Focus Effects */
+.ui.form input:focus {
+  border-color: purple !important;
+  box-shadow: 0 0 0 1px purple !important;
+}

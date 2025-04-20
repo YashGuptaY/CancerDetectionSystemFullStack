@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { NavLink, Navigate } from 'react-router-dom'
-import { Button, Form, Grid, Segment, Message } from 'semantic-ui-react'
+import { Button, Form, Grid, Segment, Message, Header } from 'semantic-ui-react'
 import { useAuth } from '../context/AuthContext'
 import { WorkApi } from '../misc/WorkApi'
 import { parseJwt, handleLogError } from '../misc/Helpers'
+import { motion } from 'framer-motion'
 
 function Signup() {
   const Auth = useAuth()
@@ -72,53 +73,70 @@ function Signup() {
   }
 
   return (
-    <Grid textAlign='center'>
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Form size='large' onSubmit={handleSubmit}>
-          <Segment>
-            <Form.Input
-              fluid
-              autoFocus
-              name='username'
-              icon='user'
-              iconPosition='left'
-              placeholder='Username'
-              onChange={handleInputChange}
-            />
-            <Form.Input
-              fluid
-              name='password'
-              icon='lock'
-              iconPosition='left'
-              placeholder='Password'
-              type='password'
-              onChange={handleInputChange}
-            />
-            <Form.Input
-              fluid
-              name='name'
-              icon='address card'
-              iconPosition='left'
-              placeholder='Name'
-              onChange={handleInputChange}
-            />
-            <Form.Input
-              fluid
-              name='email'
-              icon='at'
-              iconPosition='left'
-              placeholder='Email'
-              onChange={handleInputChange}
-            />
-            <Button color='purple' fluid size='large'>Signup</Button>
-          </Segment>
-        </Form>
-        <Message>{`Already have an account? `}
-          <NavLink to="/login" color='purple'>Login</NavLink>
-        </Message>
-        {isError && <Message negative>{errorMessage}</Message>}
-      </Grid.Column>
-    </Grid>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <Grid textAlign='center' style={{ marginTop: '7em' }}>
+        <Grid.Column style={{ maxWidth: 550 }}>
+          <Form size='large' onSubmit={handleSubmit}>
+            <Segment padded='very' className="glass-morphism">
+              <Header as='h2' color='purple' textAlign='center' style={{ marginBottom: '2em' }}>
+                Create New Account
+              </Header>
+              <Form.Input
+                fluid
+                autoFocus
+                name='username'
+                icon='user'
+                iconPosition='left'
+                placeholder='Username'
+                onChange={handleInputChange}
+                style={{ marginBottom: '1.5em' }}
+                className="input-animation"
+              />
+              <Form.Input
+                fluid
+                name='password'
+                icon='lock'
+                iconPosition='left'
+                placeholder='Password'
+                type='password'
+                onChange={handleInputChange}
+                style={{ marginBottom: '1.5em' }}
+                className="input-animation"
+              />
+              <Form.Input
+                fluid
+                name='name'
+                icon='address card'
+                iconPosition='left'
+                placeholder='Name'
+                onChange={handleInputChange}
+                style={{ marginBottom: '1.5em' }}
+                className="input-animation"
+              />
+              <Form.Input
+                fluid
+                name='email'
+                icon='at'
+                iconPosition='left'
+                placeholder='Email'
+                onChange={handleInputChange}
+                style={{ marginBottom: '2em' }}
+                className="input-animation"
+              />
+              <Button color='purple' fluid size='large'>Signup</Button>
+            </Segment>
+          </Form>
+          <Message>{`Already have an account? `}
+            <NavLink to="/login" color='purple'>Login</NavLink>
+          </Message>
+          {isError && <Message negative>{errorMessage}</Message>}
+        </Grid.Column>
+      </Grid>
+    </motion.div>
   )
 }
 

@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext'
 import AdminTab from './AdminTab'
 import { WorkApi } from '../misc/WorkApi'
 import { handleLogError } from '../misc/Helpers'
+import { motion } from 'framer-motion'
 
 function AdminPage() {
   const Auth = useAuth()
@@ -58,22 +59,33 @@ function AdminPage() {
     }
   }
 
-
   if (!isAdmin) {
     return <Navigate to='/' />
   }
 
   return (
-    <Container>
-      <AdminTab
-        isUsersLoading={isUsersLoading}
-        users={users}
-        userUsernameSearch={userUsernameSearch}
-        handleDeleteUser={handleDeleteUser}
-        handleSearchUser={handleSearchUser}
-        handleInputChange={handleInputChange}
-      />
-    </Container>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <Container>
+        <motion.div
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <AdminTab
+            isUsersLoading={isUsersLoading}
+            users={users}
+            userUsernameSearch={userUsernameSearch}
+            handleDeleteUser={handleDeleteUser}
+            handleSearchUser={handleSearchUser}
+            handleInputChange={handleInputChange}
+          />
+        </motion.div>
+      </Container>
+    </motion.div>
   )
 }
 
