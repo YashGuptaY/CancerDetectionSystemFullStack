@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Update Database Configuration for production
-DATABASE_URL = os.environ.get('DATABASE_URL', 'mysql+pymysql://root:Qazwsx%40123@localhost/cancerdb')
+DATABASE_URL = os.environ.get('DATABASE_URL', 'mysql+pymysql://Username:Password@localhost/YOUR_DATABASE_NAME')
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -103,7 +103,7 @@ def predict():
         return jsonify({"error": str(e)}), 400
 
 # Retrieve All Past Predictions
-@app.route('/predictions', methods=['GET'])
+@app.route('/getPredictions', methods=['GET'])
 def get_predictions():
     all_predictions = Prediction.query.all()
     result = [
@@ -153,5 +153,4 @@ def api_predict():
         return jsonify({"error": str(e)}), 400
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(debug=True)  # Start the Flask application
