@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { NavLink, Navigate } from 'react-router-dom'
-import { Button, Form, Grid, Icon, Segment, Menu, Message, Divider } from 'semantic-ui-react'
+import { Button, Form, Grid, Icon, Segment, Menu, Message, Divider, Header } from 'semantic-ui-react'
 import { useAuth } from '../context/AuthContext'
 import { WorkApi } from '../misc/WorkApi'
 import { parseJwt, getSocialLoginUrl, handleLogError } from '../misc/Helpers'
@@ -47,7 +47,7 @@ function Login() {
   }
 
   if (isLoggedIn) {
-    return <Navigate to='/' />
+    return <Navigate to='/userpage' />
   }
 
   return (
@@ -55,6 +55,9 @@ function Login() {
       <Grid.Column style={{ maxWidth: 450 }}>
         <Form size='large' onSubmit={handleSubmit}>
           <Segment>
+            <Header as='h2' color='purple' textAlign='center'>
+              Login to your account
+            </Header>
             <Form.Input
               fluid
               autoFocus
@@ -76,8 +79,11 @@ function Login() {
             <Button color='purple' fluid size='large'>Login</Button>
           </Segment>
         </Form>
-        <Message>{`Don't have already an account? `}
-          <NavLink to="/signup" color='purple'>Sign Up</NavLink>
+        <Message>
+          Don't have an account?{' '}
+          <NavLink to="/signup" style={{ color: 'purple' }}>
+            Sign Up
+          </NavLink>
         </Message>
         {isError && <Message negative>The username or password provided are incorrect!</Message>}
 

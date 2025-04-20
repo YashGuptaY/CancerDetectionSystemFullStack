@@ -57,12 +57,32 @@ const PredictionForm = () => {
         }
     };
 
+    const handleRefresh = () => {
+        setFormData({});
+        setResult(null);
+        setError(null);
+        setIsLoading(false);
+        // Clear all form inputs
+        const inputs = document.querySelectorAll('input[type="number"]');
+        inputs.forEach(input => input.value = '');
+    };
+
     return (
         <Container style={{ marginTop: '2em' }}>
             <Segment padded='very' raised>
-                <Header as='h2' color='purple' textAlign='center'>
-                    Breast Cancer Prediction
-                </Header>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1em' }}>
+                    <Header as='h2' color='purple'>
+                        Breast Cancer Prediction
+                    </Header>
+                    <Button 
+                        icon='refresh'
+                        color='purple'
+                        onClick={handleRefresh}
+                        circular
+                        size='large'
+                        title="Refresh Form"
+                    />
+                </div>
                 <Form onSubmit={handleSubmit}>
                     <Grid columns={2} stackable>
                         {FEATURE_NAMES.map(([fieldName, label]) => (

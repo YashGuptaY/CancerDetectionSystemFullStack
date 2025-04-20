@@ -18,9 +18,14 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/oauth2/redirect' element={<OAuth2Redirect />} />
-          <Route path="/adminpage" element={<PrivateRoute><AdminPage /></PrivateRoute>}/>
-          <Route path="/userpage" element={<PrivateRoute><UserPage /></PrivateRoute>}/>
-          <Route path="*" element={<Navigate to="/" />}/>
+          <Route path="/adminpage" element={<PrivateRoute><AdminPage /></PrivateRoute>} />
+          <Route path="/userpage" element={
+            <PrivateRoute>
+              <UserPage />
+            </PrivateRoute>
+          }/>
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </Router>
     </AuthProvider>

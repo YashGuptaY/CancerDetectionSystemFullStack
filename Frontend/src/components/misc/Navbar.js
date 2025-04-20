@@ -23,11 +23,6 @@ function Navbar() {
     return user && user.data.rol[0] === 'ADMIN' ? { "display": "block" } : { "display": "none" }
   }
 
-  const userPageStyle = () => {
-    const user = getUser()
-    return user && user.data.rol[0] === 'USER' ? { "display": "block" } : { "display": "none" }
-  }
-
   const getUserName = () => {
     const user = getUser()
     return user ? user.data.name : ''
@@ -36,12 +31,9 @@ function Navbar() {
   return (
     <Menu inverted color='purple' stackable size='massive' style={{borderRadius: 0}}>
       <Container>
-        <Menu.Item header>Movie-UI</Menu.Item>
+        <Menu.Item header>Cancer Detection System</Menu.Item>
         <Menu.Item as={Link} to="/adminpage" style={adminPageStyle()}>AdminPage</Menu.Item>
-        <Menu.Item as={Link} to="/userpage" style={userPageStyle()}>UserPage</Menu.Item>
         <Menu.Menu position='right'>
-          <Menu.Item as={Link} to="/login" style={enterMenuStyle()}>Login</Menu.Item>
-          <Menu.Item as={Link} to="/signup" style={enterMenuStyle()}>Sign Up</Menu.Item>
           <Menu.Item header style={logoutMenuStyle()}>{`Hi ${getUserName()}`}</Menu.Item>
           <Menu.Item as={Link} to="/" style={logoutMenuStyle()} onClick={logout}>Logout</Menu.Item>
         </Menu.Menu>
